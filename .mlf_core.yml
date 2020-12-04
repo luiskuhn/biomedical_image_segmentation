@@ -1,0 +1,18 @@
+domain: mlflow
+language: pytorch
+project_slug: biomedical_image_segmentation
+project_slug_no_hyphen: biomedical_image_segmentation
+template_version: '1.0.2 # <<MLF-CORE_NO_BUMP>>'
+template_handle: mlflow-pytorch
+github_username: luiskuhn
+creator_github_username: luiskuhn
+is_github_repo: true
+is_repo_private: false
+is_github_orga: false
+full_name: Luis Kuhn Cuellar
+email: luis.kuhn@gmail.com
+project_name: biomedical image segmentation
+project_short_description: Implements deep learning models for semantic segmentation
+  of microscopy and medical imaging data
+version: 0.1.0-SNAPSHOT
+license: MIT
