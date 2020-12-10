@@ -25,13 +25,13 @@ entry_points:
       lr-gamma: {type: float, default: 0.1}
       class-weights: {type: string, default: '0.2, 1.0, 2.5'}
       test-percent: {type: float, default: 0.15}
-      test-epochs {type: int, default: 10}
-      dataset-path {type: string, default: '/mnt/datasets/lits/ds/'}
-      checkpoint-path {type: string, default: 'checkpoints/'}
-      dataset-size {type: int, default: 4}
-      n-channels {type: int, default: 1}
-      n-class {type: int, default: 3}
-      dropout-rate {type: float, default: 0.25}      
+      test-epochs: {type: int, default: 10}
+      dataset-path: {type: string, default: '/mnt/datasets/lits/ds/'}
+      checkpoint-path: {type: string, default: 'checkpoints/'}
+      dataset-size: {type: int, default: 4}
+      n-channels: {type: int, default: 1}
+      n-class: {type: int, default: 3}
+      dropout-rate: {type: float, default: 0.25}      
     command: |
           python biomedical_image_segmentation/biomedical_image_segmentation.py \
             --cuda {cuda} \
