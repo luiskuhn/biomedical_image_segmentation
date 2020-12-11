@@ -9,7 +9,8 @@ name: biomedical_image_segmentation
 # conda_env: environment.yml
 docker_env:
   image: ghcr.io/luiskuhn/biomedical_image_segmentation:0.1.0-SNAPSHOT
-  volumes: ["${PWD}/data:/data"]
+  volumes: ["/mnt/datasets/lits/ds:/data"]
+#  volumes: ["${PWD}/data:/data"]
 
 entry_points:
   main:
