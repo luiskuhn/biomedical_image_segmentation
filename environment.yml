@@ -16,3 +16,5 @@ dependencies:
   - pip:
     - pycuda==2019.1.2  # not on Conda
     - system-intelligence==1.2.4  # not yet on Conda
+    - torchio==0.18.3
+    
