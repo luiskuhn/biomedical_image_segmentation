@@ -266,7 +266,7 @@ def train_net(net,
     #########################
     # Criterion
 
-    w_vec = torch.tensor(class_weights)
+    w_vec = torch.tensor(class_weights, dtype=torch.float)
     criterion = nn.CrossEntropyLoss(weight=w_vec)
 
     ############################
