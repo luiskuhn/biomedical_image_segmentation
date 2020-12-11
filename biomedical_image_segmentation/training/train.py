@@ -337,6 +337,7 @@ def train_net(net,
             print('eLoss: {0:.15f} - eAcc: {1:.15f} - eMeanIoU: {2:.15f}'.format(val_loss, acc, m_iou))
 
         if save_cp and epoch%10 == 0:
-            torch.save(net.state_dict(),
-                       checkpoint_path + 'CP_{}.pth'.format(epoch + 1))
+            mlflow.pytorch.log_model(net, 'models')
+            #torch.save(net.state_dict(),
+            #           checkpoint_path + 'CP_{}.pth'.format(epoch + 1))
             #print('Checkpoint {} saved !'.format(epoch + 1))
