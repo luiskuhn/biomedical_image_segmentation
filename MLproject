@@ -27,7 +27,7 @@ entry_points:
       class-weights: {type: string, default: '0.2, 1.0, 2.5'}
       test-percent: {type: float, default: 0.15}
       test-epochs: {type: int, default: 10}
-      dataset-path: {type: string, default: '/mnt/datasets/lits/ds/'}
+      dataset-path: {type: string, default: '/data/'}
       checkpoint-path: {type: string, default: 'checkpoints/'}
       dataset-size: {type: int, default: 10}
       n-channels: {type: int, default: 1}
