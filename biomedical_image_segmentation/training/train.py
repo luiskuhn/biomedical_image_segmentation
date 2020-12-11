@@ -179,7 +179,8 @@ def train_net(net,
               dataset_size=10,
               n_class=2,
               dataset_path='',
-              checkpoint_path=''):
+              checkpoint_path='',
+              device=None):
 
     ids = list(range(dataset_size))
     iddataset = split_train_val(ids, test_percent)

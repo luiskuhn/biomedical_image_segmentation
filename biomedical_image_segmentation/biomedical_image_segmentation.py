@@ -102,7 +102,8 @@ def start_training(cuda, epochs, general_seed, pytorch_seed,
                     dataset_size=dataset_size,
                     n_class=n_class,
                     dataset_path=dataset_path,
-                    checkpoint_path=checkpoint_path)
+                    checkpoint_path=checkpoint_path,
+                    device=device)
             
             device = 'GPU' if use_cuda else 'CPU'
             click.echo(click.style(f'{device} Run Time: {str(time.time() - runtime)} seconds', fg='green'))
