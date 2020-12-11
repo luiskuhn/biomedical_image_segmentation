@@ -334,7 +334,7 @@ def train_net(net,
             val_loss, acc, m_iou = eval_training(net, test_loader, gpu=gpu, n_class=n_class, weights=w_vec, device=device)
             
             #print('Eval_acc: {}'.format(acc))
-            print('eLoss: {0:.15f} - eAcc: {1:.15f} - eMeanIoU: {2:.15f} - eMeanDice: {3:.15f}'.format(val_loss, acc, m_iou, m_dice))
+            print('eLoss: {0:.15f} - eAcc: {1:.15f} - eMeanIoU: {2:.15f}'.format(val_loss, acc, m_iou))
 
         if save_cp and epoch%10 == 0:
             torch.save(net.state_dict(),
