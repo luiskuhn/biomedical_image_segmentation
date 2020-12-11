@@ -197,7 +197,8 @@ def train_net(net,
 
     if class_weights == None:
         class_weights = np.ones(n_class)
-    
+    else:
+        class_weights = np.array([float(i) for i in class_weights.split(',')])
 
     ###################################################
 
