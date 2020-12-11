@@ -28,7 +28,7 @@ entry_points:
       test-epochs: {type: int, default: 10}
       dataset-path: {type: string, default: '/mnt/datasets/lits/ds/'}
       checkpoint-path: {type: string, default: 'checkpoints/'}
-      dataset-size: {type: int, default: 4}
+      dataset-size: {type: int, default: 10}
       n-channels: {type: int, default: 1}
       n-class: {type: int, default: 3}
       dropout-rate: {type: float, default: 0.25}      
