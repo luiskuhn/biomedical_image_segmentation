@@ -73,7 +73,7 @@ from dataset_objects import VolumeDataset
 
 ########
 
-def eval_training(net, test_loader, gpu=False, n_class=2, weights=None):
+def eval_training(net, test_loader, gpu=False, n_class=2, weights=None, device=None):
     """Evaluation during trainig"""
     
     tot = 0
@@ -82,8 +82,6 @@ def eval_training(net, test_loader, gpu=False, n_class=2, weights=None):
 
     iou_sum = np.zeros(n_class)
     count_sum = np.zeros(n_class)
-
-    #dice_sum = np.zeros(n_class)
 
     i = 0
 
@@ -127,18 +125,6 @@ def eval_training(net, test_loader, gpu=False, n_class=2, weights=None):
             iou_sum = iou_sum + iter_iou
             count_sum = count_sum + iter_count
 
-            # ###################
-            # #dice
-            # #dice_tm = torch.zeros(masks_pred.size())
-            # dice_tm = torch.cuda.FloatTensor(masks_pred.size()).fill_(0)
-            # for c_i in range(n_class):
-            #     dice_tm[:, c_i, :, :, :] = (true_masks == c_i).double()
-            # iter_dice = compute_per_channel_dice(F.softmax(masks_pred, dim=1), dice_tm)
-            # dice_sum = dice_sum + iter_dice.detach().cpu().numpy()
-            # del dice_tm
-            # torch.cuda.empty_cache()
-            # ###################
-
             i +=1
 
     ##IoU
@@ -150,20 +136,12 @@ def eval_training(net, test_loader, gpu=False, n_class=2, weights=None):
             iou_scores[c] = np.nan #float('nan')
         print('class {} IoU: {}'.format(c, iou_scores[c]))
 
-    # ##dice
-    # dice_scores = dice_sum / i
-    # dice_mean = np.nanmean(dice_scores)
-
-    # for c in range(n_class):
-    #     print('class {} Dice: {}'.format(c, dice_scores[c]))
-    dice_mean = 0
-
     ##########################
 
 
     net.train()
 
-    return tot / i, acc / i, iou_mean, dice_mean
+    return tot / i, acc / i, iou_mean
 
 ##########################################
 
@@ -353,7 +331,7 @@ def train_net(net,
         #if epoch%2 == 0: #for LR range test
 
             print('eval ' + str(epoch +1) + ' ..................................................')
-            val_loss, acc, m_iou, m_dice = eval_training(net, test_loader, gpu=gpu, n_class=n_class, weights=w_vec)
+            val_loss, acc, m_iou = eval_training(net, test_loader, gpu=gpu, n_class=n_class, weights=w_vec, device=device)
             
             #print('Eval_acc: {}'.format(acc))
             print('eLoss: {0:.15f} - eAcc: {1:.15f} - eMeanIoU: {2:.15f} - eMeanDice: {3:.15f}'.format(val_loss, acc, m_iou, m_dice))
