@@ -160,7 +160,8 @@ def train_net(net,
               n_class=2,
               dataset_path='',
               checkpoint_path='',
-              device=None):
+              device=None,
+              writer=None):
 
     ids = list(range(dataset_size))
     iddataset = split_train_val(ids, test_percent)
@@ -183,7 +184,8 @@ def train_net(net,
 
     ###################################################
 
-    train_set = VolumeDataset(iddataset['train'], path=dataset_path, apply_trans=True, n_class=n_class)
+    ## apply_trans=False to disable random data perturbation
+    train_set = VolumeDataset(iddataset['train'], path=dataset_path, apply_trans=False, n_class=n_class)
     train_loader = torch.utils.data.DataLoader(train_set,
                                               batch_size=batch_size,
                                               shuffle=True, #!!!!!!!!
@@ -315,7 +317,7 @@ def train_net(net,
         iou_scores = iou_sum / (count_sum + 1e-10)
         iou_mean = np.nanmean(iou_scores)
 
-        print('epoch {0:.1f} - loss: {1:.15f} - acc: {2:.15f} - meanIoU: {3:.15f} - ts: {4:.15f}'.format(epoch + 1, epoch_loss/i, acc/i, iou_mean, ts))       
+        print('epoch {0:.1f} - loss: {1:.15f} - acc: {2:.15f} - meanIoU: {3:.15f} - ts: {4:.15f}'.format(epoch + 1, epoch_loss/i, acc/i, iou_mean, ts))
 
         #########################################
         
@@ -324,6 +326,10 @@ def train_net(net,
                 iou_scores[c] = np.nan #float('nan')
             print('class {} IoU: {}'.format(c, iou_scores[c]))
 
+        ################################
+        #log
+        log_scalar('train_loss', epoch_loss/i, epoch + 1, writer)
+        log_scalar('train_iou', iou_mean, epoch + 1, writer)
         ################################
         
         
@@ -336,8 +342,17 @@ def train_net(net,
             #print('Eval_acc: {}'.format(acc))
             print('eLoss: {0:.15f} - eAcc: {1:.15f} - eMeanIoU: {2:.15f}'.format(val_loss, acc, m_iou))
 
+            ################################
+            #log
+            log_scalar('test_loss', val_loss, epoch + 1, writer)
+            log_scalar('test_iou', m_iou, epoch + 1, writer)
+            ################################
+
         if save_cp and epoch%10 == 0:
-            mlflow.pytorch.log_model(net, 'models')
+            
+            mlflow.pytorch.log_model(net, 'model_CP_' + str(epoch + 1))
+            net.log_weights(epoch + 1, writer)
+
             #torch.save(net.state_dict(),
             #           checkpoint_path + 'CP_{}.pth'.format(epoch + 1))
             #print('Checkpoint {} saved !'.format(epoch + 1))
