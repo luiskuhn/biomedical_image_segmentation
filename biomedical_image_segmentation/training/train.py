@@ -344,8 +344,8 @@ def train_net(net,
 
             ################################
             #log
-            log_scalar('test_loss', val_loss, epoch + 1, writer)
-            log_scalar('test_iou', m_iou, epoch + 1, writer)
+            log_scalar('test_loss', float(val_loss), epoch + 1, writer)
+            log_scalar('test_iou', float(m_iou), epoch + 1, writer)
             ################################
 
         if save_cp and epoch%10 == 0:
