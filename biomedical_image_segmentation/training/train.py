@@ -184,11 +184,11 @@ def train_net(net,
 
     ###################################################
 
-    ## apply_trans=False to disable random data perturbation
+    ## apply_trans=False to disable random data perturbation, also shuffle=False
     train_set = VolumeDataset(iddataset['train'], path=dataset_path, apply_trans=False, n_class=n_class)
     train_loader = torch.utils.data.DataLoader(train_set,
                                               batch_size=batch_size,
-                                              shuffle=True, #!!!!!!!!
+                                              shuffle=False, #False for rep!!!!!!!!
                                               num_workers=4, ##########
                                               pin_memory=False,
                                               sampler=None)
