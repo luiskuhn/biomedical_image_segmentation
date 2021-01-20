@@ -351,7 +351,7 @@ def train_net(net,
         if save_cp and epoch%10 == 0:
             
             mlflow.pytorch.log_model(net, 'model_CP_' + str(epoch + 1))
-            net.log_weights(epoch + 1, writer)
+            #net.log_weights(epoch + 1, writer) ???
 
             #torch.save(net.state_dict(),
             #           checkpoint_path + 'CP_{}.pth'.format(epoch + 1))
