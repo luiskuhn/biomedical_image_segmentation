@@ -19,8 +19,8 @@ entry_points:
       epochs: {type: int, default: 5}
       general-seed: {type: int, default: 0}
       pytorch-seed: {type: int, default: 0}
-      training-batch-size: {type: int, default: 8}
-      test-batch-size: {type: int, default: 8}
+      training-batch-size: {type: int, default: 4}
+      test-batch-size: {type: int, default: 4}
       learning-rate: {type: float, default: 0.0001}
       lr-step-size: {type: int, default: 10000}
       lr-gamma: {type: float, default: 0.1}
