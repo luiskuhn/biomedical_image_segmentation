@@ -68,7 +68,7 @@ def start_training(cuda, epochs, general_seed, pytorch_seed,
         #train_loader, test_loader = load_train_test_data(training_batch_size, test_batch_size)
 
         # Define model, device and optimizer
-        if torch.cuda.device_count() > 1:
+        if use_cuda and torch.cuda.device_count() > 1:
             model = create_parallel_model(n_channels, n_class, dropout_val=dropout_rate)
         else:
             model = create_model(n_channels, n_class, dropout_val=dropout_rate)
