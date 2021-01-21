@@ -15,7 +15,7 @@ docker_env:
 entry_points:
   main:
     parameters:
-      cuda: {type: string, default: 'True'}
+      cuda: {type: string, default: 'False'}
       epochs: {type: int, default: 3}
       general-seed: {type: int, default: 0}
       pytorch-seed: {type: int, default: 0}
