@@ -189,7 +189,7 @@ def train_net(net,
     train_loader = torch.utils.data.DataLoader(train_set,
                                               batch_size=batch_size,
                                               shuffle=False, #False for rep!!!!!!!!
-                                              num_workers=4, ##########
+                                              num_workers=2, ##########
                                               pin_memory=False,
                                               sampler=None)
 
@@ -198,7 +198,7 @@ def train_net(net,
                                             batch_size=batch_size,
                                             shuffle=False,
                                             pin_memory=False,
-                                            num_workers=2) # pin_memory=True??
+                                            num_workers=1) # pin_memory=True??
 
     ###########################################################
 
