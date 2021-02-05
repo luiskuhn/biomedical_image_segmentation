@@ -76,8 +76,8 @@ class DownSamplingBlock(nn.Module):
         self.down = nn.Sequential(
             nn.Dropout3d(self.dropout_value),
             
-            nn.MaxPool3d(2, stride=2),
-            #nn.Conv3d(in_ch, in_ch, 2, stride=2),
+            #nn.MaxPool3d(2, stride=2),
+            nn.Conv3d(in_ch, in_ch, 2, stride=2),
             
             #nn.BatchNorm3d(in_ch),
             #nn.ReLU(inplace=True),
