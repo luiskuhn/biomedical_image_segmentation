@@ -166,8 +166,8 @@ def train_net(net,
     ids = list(range(dataset_size))
     iddataset = split_train_val(ids, test_percent)
 
-    iddataset['train'] = [1, 2]
-    iddataset['val'] = [3]
+    iddataset['train'] = [1, 2, 5, 8]
+    iddataset['val'] = [3, 9]
 
     print("train ids:" + str(iddataset['train']))
     print("val ids:" + str(iddataset['val']))
