@@ -337,26 +337,26 @@ def train_net(net,
         ################################
         
         
-        # if epoch%test_epochs == 0:
-        # #if epoch%2 == 0: #for LR range test
+        if epoch%test_epochs == 0:
+        #if epoch%2 == 0: #for LR range test
 
-        #     print('eval ' + str(epoch +1) + ' ..................................................')
-        #     val_loss, acc, m_iou = eval_training(net, test_loader, gpu=gpu, n_class=n_class, weights=w_vec, device=device)
+            print('eval ' + str(epoch +1) + ' ..................................................')
+            val_loss, acc, m_iou = eval_training(net, test_loader, gpu=gpu, n_class=n_class, weights=w_vec, device=device)
             
-        #     #print('Eval_acc: {}'.format(acc))
-        #     print('eLoss: {0:.15f} - eAcc: {1:.15f} - eMeanIoU: {2:.15f}'.format(val_loss, acc, m_iou))
+            #print('Eval_acc: {}'.format(acc))
+            print('eLoss: {0:.15f} - eAcc: {1:.15f} - eMeanIoU: {2:.15f}'.format(val_loss, acc, m_iou))
 
-        #     ################################
-        #     #log
-        #     log_scalar('test_loss', float(val_loss), epoch + 1, writer)
-        #     log_scalar('test_iou', float(m_iou), epoch + 1, writer)
-        #     ################################
+            ################################
+            #log
+            log_scalar('test_loss', float(val_loss), epoch + 1, writer)
+            log_scalar('test_iou', float(m_iou), epoch + 1, writer)
+            ################################
 
-        # if save_cp and epoch%10 == 0:
+        if save_cp and epoch%10 == 0:
             
-        #     mlflow.pytorch.log_model(net, 'model_CP_' + str(epoch + 1))
-        #     #net.log_weights(epoch + 1, writer) ???
+            mlflow.pytorch.log_model(net, 'model_CP_' + str(epoch + 1))
+            #net.log_weights(epoch + 1, writer) ???
 
-        #     #torch.save(net.state_dict(),
-        #     #           checkpoint_path + 'CP_{}.pth'.format(epoch + 1))
-        #     #print('Checkpoint {} saved !'.format(epoch + 1))
+            #torch.save(net.state_dict(),
+            #           checkpoint_path + 'CP_{}.pth'.format(epoch + 1))
+            #print('Checkpoint {} saved !'.format(epoch + 1))
