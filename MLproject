@@ -16,7 +16,7 @@ entry_points:
   main:
     parameters:
       cuda: {type: string, default: 'True'}
-      epochs: {type: int, default: 10}
+      epochs: {type: int, default: 5}
       general-seed: {type: int, default: 0}
       pytorch-seed: {type: int, default: 0}
       training-batch-size: {type: int, default: 2}
