@@ -263,7 +263,7 @@ def train_net(net,
     ############################
 
     if gpu:
-      criterion.cuda()
+      #criterion.cuda()
       criterion.to(device)
 
     start_time = time.time()

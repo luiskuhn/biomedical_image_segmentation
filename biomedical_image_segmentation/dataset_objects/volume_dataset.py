@@ -2,8 +2,8 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset
 
-import torchio
-from torchio.transforms import RandomAffine
+# import torchio
+# from torchio.transforms import RandomAffine
 
 
 class VolumeDataset(Dataset):
@@ -47,15 +47,16 @@ class VolumeDataset(Dataset):
         ###################################
         #transforms
 
-        self.apply_trans = apply_trans
+        
+        # self.apply_trans = apply_trans
 
-        self.transform = RandomAffine(
-            scales=(1.0, 1.0),
-            degrees=(0, 2.0),
-            translation=(0, 2.0),
-            isotropic=True,
-            default_pad_value='mean')#,
-            #image_interpolation='bspline')
+        # self.transform = RandomAffine(
+        #     scales=(1.0, 1.0),
+        #     degrees=(0, 2.0),
+        #     translation=(0, 2.0),
+        #     isotropic=True,
+        #     default_pad_value='mean')#,
+        #     #image_interpolation='bspline')
 
     def apply_transformation(self, vol, label):
 
@@ -85,11 +86,11 @@ class VolumeDataset(Dataset):
 
         pair = (vol, label)
 
-        ###########
-        #transform
-        if self.apply_trans:
-            pair = self.apply_transformation(vol, label)
-        ##########
+        # ###########
+        # #transform
+        # if self.apply_trans:
+        #     pair = self.apply_transformation(vol, label)
+        # ##########
 
 
         return pair
