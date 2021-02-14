@@ -11,6 +11,7 @@ dependencies:
   - conda-forge::mlflow=1.11.0
   - conda-forge::tensorboardx=2.1
   - pytorch::pytorch=1.7.1
+  - pytorch::torchvision=0.8.0
 #  - pytorch::pytorch=1.6.0=py3.7_cuda10.1.243_cudnn7.6.3_0
 #  - pytorch::torchvision=0.7.0=py37_cu101
   - pip
