@@ -21,6 +21,8 @@ from training.train import train_net
 
 #from data_loading.data_loader import load_train_test_data
 
+import numpy as np
+###########
 
 @click.command()
 @click.option('--cuda', type=click.Choice(['True', 'False']), default='True', help='Enable or disable CUDA support.')
@@ -63,6 +65,9 @@ def start_training(cuda, epochs, general_seed, pytorch_seed,
         # Set all random seeds and possibly turn of GPU non determinism
         set_general_random_seeds(general_seed)
         set_pytorch_random_seeds(pytorch_seed, use_cuda=use_cuda)
+
+        # set numpy seed for determinism
+        np.random.seed(0)
 
         # Load training and testing data
         #train_loader, test_loader = load_train_test_data(training_batch_size, test_batch_size)
@@ -141,6 +146,9 @@ def set_pytorch_random_seeds(seed, use_cuda):
         torch.cuda.manual_seed_all(seed)  # For multiGPU
         torch.backends.cudnn.deterministic = True
         torch.backends.cudnn.benchmark = False
+
+        torch.set_deterministic(True)
+
 
 
 if __name__ == '__main__':
