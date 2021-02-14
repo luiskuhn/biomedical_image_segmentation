@@ -6,7 +6,7 @@
 
 name: biomedical_image_segmentation
 
-conda_env: environment.yml
+  conda_env: environment.yml
 #docker_env:
 #  image: ghcr.io/luiskuhn/biomedical_image_segmentation:0.1.0-SNAPSHOT
   volumes: ["/mnt/storage/lits/ds:/data"]
