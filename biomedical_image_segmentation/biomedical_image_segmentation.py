@@ -147,7 +147,7 @@ def set_pytorch_random_seeds(seed, use_cuda):
         torch.backends.cudnn.deterministic = True
         torch.backends.cudnn.benchmark = False
 
-        torch.set_deterministic(True)
+        #torch.set_deterministic(True)
 
 
 
