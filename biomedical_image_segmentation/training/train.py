@@ -70,6 +70,7 @@ from torch.optim.lr_scheduler import CyclicLR, StepLR
 from utils import split_train_val, count_model_parameters
 from metrics import iou_fnc, accuracy, compute_per_channel_dice
 from dataset_objects import VolumeDataset
+from losses import FocalLoss
 
 ########
 
@@ -257,8 +258,10 @@ def train_net(net,
     #########################
     # Criterion
 
-    w_vec = torch.tensor(class_weights, dtype=torch.float)
-    criterion = nn.CrossEntropyLoss(weight=w_vec)
+    #w_vec = torch.tensor(class_weights, dtype=torch.float)
+    #criterion = nn.CrossEntropyLoss(weight=w_vec)
+
+    criterion = FocalLoss(apply_nonlin=None, alpha=0.5, gamma=2, smooth=1e-5)
 
     ############################
 
@@ -292,11 +295,13 @@ def train_net(net,
 
                 imgs = imgs.to(device, non_blocking=False) #, non_blocking=True) # faster, but can cause sync errors
                 true_masks = true_masks.to(device, non_blocking=False)
-
-                
+ 
             masks_probs = net(imgs)
             
-            loss = criterion(masks_probs, true_masks.type(torch.long))
+            #loss = criterion(masks_probs, true_masks.type(torch.long))
+
+            ##for focal loss
+            loss = criterion(F.softmax(masks_probs, dim=1), true_masks.type(torch.long))
             
             #########################################################################################
             #eval metric
@@ -344,26 +349,26 @@ def train_net(net,
         ################################
         
         
-        if epoch%test_epochs == 0:
-        #if epoch%2 == 0: #for LR range test
+        # if epoch%test_epochs == 0:
+        # #if epoch%2 == 0: #for LR range test
 
-            print('eval ' + str(epoch +1) + ' ..................................................')
-            val_loss, acc, m_iou = eval_training(net, test_loader, gpu=gpu, n_class=n_class, weights=w_vec, device=device)
+        #     print('eval ' + str(epoch +1) + ' ..................................................')
+        #     val_loss, acc, m_iou = eval_training(net, test_loader, gpu=gpu, n_class=n_class, weights=w_vec, device=device)
             
-            #print('Eval_acc: {}'.format(acc))
-            print('eLoss: {0:.15f} - eAcc: {1:.15f} - eMeanIoU: {2:.15f}'.format(val_loss, acc, m_iou))
+        #     #print('Eval_acc: {}'.format(acc))
+        #     print('eLoss: {0:.15f} - eAcc: {1:.15f} - eMeanIoU: {2:.15f}'.format(val_loss, acc, m_iou))
 
-            ################################
-            #log
-            log_scalar('test_loss', float(val_loss), epoch + 1, writer)
-            log_scalar('test_iou', float(m_iou), epoch + 1, writer)
-            ################################
+        #     ################################
+        #     #log
+        #     log_scalar('test_loss', float(val_loss), epoch + 1, writer)
+        #     log_scalar('test_iou', float(m_iou), epoch + 1, writer)
+        #     ################################
 
-        if save_cp and epoch%10 == 0:
+        # if save_cp and epoch%10 == 0:
             
-            mlflow.pytorch.log_model(net, 'model_CP_' + str(epoch + 1))
-            #net.log_weights(epoch + 1, writer) ???
+        #     mlflow.pytorch.log_model(net, 'model_CP_' + str(epoch + 1))
+        #     #net.log_weights(epoch + 1, writer) ???
 
-            #torch.save(net.state_dict(),
-            #           checkpoint_path + 'CP_{}.pth'.format(epoch + 1))
-            #print('Checkpoint {} saved !'.format(epoch + 1))
+        #     #torch.save(net.state_dict(),
+        #     #           checkpoint_path + 'CP_{}.pth'.format(epoch + 1))
+        #     #print('Checkpoint {} saved !'.format(epoch + 1))
