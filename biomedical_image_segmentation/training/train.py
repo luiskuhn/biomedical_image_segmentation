@@ -92,7 +92,7 @@ def eval_training(net, test_loader, gpu=False, n_class=2, weights=None, device=N
         w_vec = weights
 
     #e_criterion = nn.CrossEntropyLoss(weight=w_vec)
-    criterion = FocalLoss(apply_nonlin=None, alpha=0.5, gamma=2, smooth=1e-5)
+    e_criterion = FocalLoss(apply_nonlin=None, alpha=0.5, gamma=2, smooth=1e-5)
 
     
     if gpu:
