@@ -91,7 +91,9 @@ def eval_training(net, test_loader, gpu=False, n_class=2, weights=None, device=N
     else:
         w_vec = weights
 
-    e_criterion = nn.CrossEntropyLoss(weight=w_vec)
+    #e_criterion = nn.CrossEntropyLoss(weight=w_vec)
+    criterion = FocalLoss(apply_nonlin=None, alpha=0.5, gamma=2, smooth=1e-5)
+
     
     if gpu:
         e_criterion.cuda()
@@ -100,12 +102,10 @@ def eval_training(net, test_loader, gpu=False, n_class=2, weights=None, device=N
     net.eval()
     with torch.no_grad():
     
-        
         for data in test_loader:
 
             imgs, true_masks = data
             
-
             if gpu:                                
                 imgs = imgs.to(device, non_blocking=False) #, non_blocking=True) #faster
                 true_masks = true_masks.to(device, non_blocking=False)
@@ -113,8 +113,11 @@ def eval_training(net, test_loader, gpu=False, n_class=2, weights=None, device=N
             masks_pred = net(imgs)
             #masks_probs = F.softmax(masks_pred, dim=1)
 
-            #tot += e_criterion(masks_pred, true_masks)
-            tot += e_criterion(masks_pred, true_masks.type(torch.long))
+            ##tot += e_criterion(masks_pred, true_masks)
+            #tot += e_criterion(masks_pred, true_masks.type(torch.long))
+
+            ##for focal loss
+            tot += e_criterion(F.softmax(masks_pred, dim=1), true_masks.type(torch.long))
 
             #metrics
             out = torch.argmax(masks_pred, dim=1).float()
