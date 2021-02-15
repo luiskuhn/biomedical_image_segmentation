@@ -261,7 +261,7 @@ def train_net(net,
     #########################
     # Criterion
 
-    #w_vec = torch.tensor(class_weights, dtype=torch.float)
+    w_vec = torch.tensor(class_weights, dtype=torch.float)
     #criterion = nn.CrossEntropyLoss(weight=w_vec)
 
     criterion = FocalLoss(apply_nonlin=None, alpha=0.5, gamma=2, smooth=1e-5)
