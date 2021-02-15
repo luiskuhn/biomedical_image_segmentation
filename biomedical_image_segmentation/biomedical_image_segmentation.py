@@ -144,12 +144,11 @@ def set_pytorch_random_seeds(seed, use_cuda):
     if use_cuda:
         torch.cuda.manual_seed(seed)
         torch.cuda.manual_seed_all(seed)  # For multiGPU
-        torch.backends.cudnn.deterministic = True
-        torch.backends.cudnn.benchmark = False
-
-        torch.set_deterministic(True)
-
-
+        
+        #torch.backends.cudnn.deterministic = True
+        #torch.backends.cudnn.benchmark = False
+        #torch.set_deterministic(True)
+        
 
 if __name__ == '__main__':
     traceback.install()
