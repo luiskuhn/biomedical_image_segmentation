@@ -146,7 +146,7 @@ class FocalLoss(nn.Module):
         one_hot_key = one_hot_key.scatter_(1, idx, 1)
         if one_hot_key.device != logit.device:
             one_hot_key = one_hot_key.to(logit.device)
-        pt = (one_hot_key * logit).sum(1) + epsilon
+        pt = (one_hot_key * logit).sum(1) + self.eps
 
         # ----------memory saving way--------
         #pt = logit.gather(1, target).view(-1) + self.eps # avoid apply
