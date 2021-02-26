@@ -118,8 +118,8 @@ def eval_training(net, test_loader, gpu=False, n_class=2, weights=None, device=N
             #tot += e_criterion(masks_pred, true_masks.type(torch.long))
 
             ##for focal loss
-            #tot += e_criterion(F.softmax(masks_pred, dim=1), true_masks.type(torch.long))
-            tot += e_criterion(masks_pred, true_masks.type(torch.long))
+            tot += e_criterion(F.softmax(masks_pred, dim=1), true_masks.type(torch.long))
+            #tot += e_criterion(masks_pred, true_masks.type(torch.long))
 
             #metrics
             out = torch.argmax(masks_pred, dim=1).float()
@@ -307,8 +307,8 @@ def train_net(net,
             #loss = criterion(masks_probs, true_masks.type(torch.long))
 
             ##for focal loss
-            #loss = criterion(F.softmax(masks_probs, dim=1), true_masks.type(torch.long))
-            loss = criterion(masks_probs, true_masks.type(torch.long))
+            loss = criterion(F.softmax(masks_probs, dim=1), true_masks.type(torch.long))
+            #loss = criterion(masks_probs, true_masks.type(torch.long))
             
             #########################################################################################
             #eval metric
