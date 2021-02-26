@@ -125,16 +125,16 @@ class OutputBlock(nn.Module):
     def __init__(self, in_ch, out_ch):
         super(OutputBlock, self).__init__()
 
-        self.non_linearity = nn.ReLU(inplace=False)
+        #self.non_linearity = nn.ReLU(inplace=False)
 
         self.conv_1= nn.Conv3d(in_ch, out_ch, 1)
-        self.batch_norm_1 = nn.BatchNorm3d(out_ch)
+        #self.batch_norm_1 = nn.BatchNorm3d(out_ch)
         
     def forward(self, x):
         
         x = self.conv_1(x)
-        x = self.batch_norm_1(x)
-        x = self.non_linearity(x)
+        #x = self.batch_norm_1(x)
+        #x = self.non_linearity(x)
 
         #softmax?
         #x = F.softmax(x, dim=1)

@@ -62,12 +62,12 @@ def start_training(cuda, epochs, general_seed, pytorch_seed,
         if use_cuda and torch.cuda.device_count() > 0:
             click.echo(click.style(f'Using {torch.cuda.device_count()} GPUs!', fg='blue'))
 
-        # # Set all random seeds and possibly turn of GPU non determinism
-        # set_general_random_seeds(general_seed)
-        # set_pytorch_random_seeds(pytorch_seed, use_cuda=use_cuda)
+        # Set all random seeds and possibly turn of GPU non determinism
+        set_general_random_seeds(general_seed)
+        set_pytorch_random_seeds(pytorch_seed, use_cuda=use_cuda)
 
-        # # set numpy seed for determinism
-        # np.random.seed(0)
+        # set numpy seed for determinism
+        np.random.seed(0)
 
         # Load training and testing data
         #train_loader, test_loader = load_train_test_data(training_batch_size, test_batch_size)
@@ -145,9 +145,9 @@ def set_pytorch_random_seeds(seed, use_cuda):
         torch.cuda.manual_seed(seed)
         torch.cuda.manual_seed_all(seed)  # For multiGPU
         
-        #torch.backends.cudnn.deterministic = True
-        #torch.backends.cudnn.benchmark = False
-        #torch.set_deterministic(True)
+        torch.backends.cudnn.deterministic = True
+        torch.backends.cudnn.benchmark = False
+        torch.set_deterministic(True)
         
 
 if __name__ == '__main__':
