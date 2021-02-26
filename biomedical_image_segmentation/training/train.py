@@ -92,7 +92,8 @@ def eval_training(net, test_loader, gpu=False, n_class=2, weights=None, device=N
         w_vec = weights
 
     #e_criterion = nn.CrossEntropyLoss(weight=w_vec)
-    e_criterion = FocalLoss(apply_nonlin=None, alpha=0.5, gamma=2, smooth=1e-5)
+    #e_criterion = FocalLoss(apply_nonlin=None, alpha=0.5, gamma=2, smooth=1e-5)
+    e_criterion = FocalLoss(num_class=n_class, alpha=0.25, gamma=2.0, balance_index=2)
 
     
     if gpu:
@@ -117,7 +118,8 @@ def eval_training(net, test_loader, gpu=False, n_class=2, weights=None, device=N
             #tot += e_criterion(masks_pred, true_masks.type(torch.long))
 
             ##for focal loss
-            tot += e_criterion(F.softmax(masks_pred, dim=1), true_masks.type(torch.long))
+            #tot += e_criterion(F.softmax(masks_pred, dim=1), true_masks.type(torch.long))
+            tot += e_criterion(masks_pred, true_masks.type(torch.long))
 
             #metrics
             out = torch.argmax(masks_pred, dim=1).float()
@@ -264,7 +266,8 @@ def train_net(net,
     w_vec = torch.tensor(class_weights, dtype=torch.float)
     #criterion = nn.CrossEntropyLoss(weight=w_vec)
 
-    criterion = FocalLoss(apply_nonlin=None, alpha=0.5, gamma=2, smooth=1e-5)
+    #criterion = FocalLoss(apply_nonlin=None, alpha=0.5, gamma=2, smooth=1e-5)
+    criterion = FocalLoss(num_class=n_class, alpha=0.25, gamma=2.0, balance_index=2)
 
     ############################
 
@@ -304,7 +307,8 @@ def train_net(net,
             #loss = criterion(masks_probs, true_masks.type(torch.long))
 
             ##for focal loss
-            loss = criterion(F.softmax(masks_probs, dim=1), true_masks.type(torch.long))
+            #loss = criterion(F.softmax(masks_probs, dim=1), true_masks.type(torch.long))
+            loss = criterion(masks_probs, true_masks.type(torch.long))
             
             #########################################################################################
             #eval metric
