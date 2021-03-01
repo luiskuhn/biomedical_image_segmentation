@@ -92,7 +92,7 @@ def eval_training(net, test_loader, gpu=False, n_class=2, weights=None, device=N
         w_vec = weights
 
     #e_criterion = nn.CrossEntropyLoss(weight=w_vec)
-    e_criterion = FocalLoss(apply_nonlin=None, alpha=0.5, gamma=2, smooth=1e-5)
+    e_criterion = FocalLoss(apply_nonlin=None, alpha=w_vec, gamma=2, smooth=1e-5)
     #e_criterion = FocalLoss(num_class=n_class, alpha=0.25, gamma=2.0, balance_index=2)
 
     
@@ -266,7 +266,7 @@ def train_net(net,
     w_vec = torch.tensor(class_weights, dtype=torch.float)
     #criterion = nn.CrossEntropyLoss(weight=w_vec)
 
-    criterion = FocalLoss(apply_nonlin=None, alpha=0.5, gamma=2, smooth=1e-5)
+    criterion = FocalLoss(apply_nonlin=None, alpha=class_weights, gamma=2, smooth=1e-5)
     #criterion = FocalLoss(num_class=n_class, alpha=0.25, gamma=2.0, balance_index=2)
 
     ############################
@@ -360,7 +360,7 @@ def train_net(net,
         #if epoch%2 == 0: #for LR range test
 
             print('eval ' + str(epoch +1) + ' ..................................................')
-            val_loss, acc, m_iou = eval_training(net, test_loader, gpu=gpu, n_class=n_class, weights=w_vec, device=device)
+            val_loss, acc, m_iou = eval_training(net, test_loader, gpu=gpu, n_class=n_class, weights=class_weights, device=device)
             
             #print('Eval_acc: {}'.format(acc))
             print('eLoss: {0:.15f} - eAcc: {1:.15f} - eMeanIoU: {2:.15f}'.format(val_loss, acc, m_iou))

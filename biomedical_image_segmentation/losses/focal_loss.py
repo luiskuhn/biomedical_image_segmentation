@@ -66,6 +66,8 @@ class FocalLoss(nn.Module):
 
         else:
             raise TypeError('Not support alpha type')
+
+        print("->alpha: " + str(alpha))
         
         if alpha.device != logit.device:
             alpha = alpha.to(logit.device)
@@ -139,7 +141,7 @@ class FocalLoss(nn.Module):
 #             logit = logit.transpose(1, 2).contiguous() # [N,C,d1*d2..] -> [N,d1*d2..,C]
 #             logit = logit.view(-1, logit.size(-1)) # [N,d1*d2..,C]-> [N*d1*d2..,C]
 #         target = target.view(-1, 1) # [N,d1,d2,...]->[N*d1*d2*...,1]
-        
+
 #         # -----------legacy way------------
 #         idx = target.cpu().long()
 #         one_hot_key = torch.FloatTensor(target.size(0), self.num_class).zero_()
