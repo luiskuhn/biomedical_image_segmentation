@@ -92,7 +92,7 @@ def eval_training(net, test_loader, gpu=False, n_class=2, weights=None, device=N
         w_vec = weights
 
     #e_criterion = nn.CrossEntropyLoss(weight=w_vec)
-    e_criterion = FocalLoss(apply_nonlin=None, alpha=w_vec, gamma=2, smooth=1e-5)
+    e_criterion = FocalLoss(apply_nonlin=None, alpha=w_vec, gamma=2)
     #e_criterion = FocalLoss(num_class=n_class, alpha=0.25, gamma=2.0, balance_index=2)
 
     
@@ -263,10 +263,10 @@ def train_net(net,
     #########################
     # Criterion
 
-    w_vec = torch.tensor(class_weights, dtype=torch.float)
+    #w_vec = torch.tensor(class_weights, dtype=torch.float)
     #criterion = nn.CrossEntropyLoss(weight=w_vec)
 
-    criterion = FocalLoss(apply_nonlin=None, alpha=class_weights, gamma=2, smooth=1e-5)
+    criterion = FocalLoss(apply_nonlin=None, alpha=class_weights, gamma=2)
     #criterion = FocalLoss(num_class=n_class, alpha=0.25, gamma=2.0, balance_index=2)
 
     ############################

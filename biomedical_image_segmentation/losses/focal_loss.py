@@ -67,7 +67,7 @@ class FocalLoss(nn.Module):
         else:
             raise TypeError('Not support alpha type')
 
-        print("->alpha: " + str(alpha))
+        #print("->alpha: " + str(alpha))
         
         if alpha.device != logit.device:
             alpha = alpha.to(logit.device)
