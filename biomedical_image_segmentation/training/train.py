@@ -86,10 +86,10 @@ def eval_training(net, test_loader, gpu=False, n_class=2, weights=None, device=N
 
     i = 0
 
-    if weights == None:
-        w_vec = torch.ones(n_class)
-    else:
-        w_vec = weights
+    # if weights == None:
+    #     w_vec = torch.ones(n_class)
+    # else:
+    #     w_vec = weights
 
     #e_criterion = nn.CrossEntropyLoss(weight=w_vec)
     e_criterion = FocalLoss(apply_nonlin=None, alpha=w_vec, gamma=2)
